@@ -66,8 +66,6 @@ body{
 }
 
 .f-info {
-  position: relative;
-  bottom: 0;
   width: 100%;
   background-color: #ebebeb;
   display: flex;
