@@ -72,6 +72,10 @@ const sessionOption = {
 // app.get('/', (req,res)=>{
 //     res.send('hey this is the first root');
 // });
+app.get('/', (req, res) => {
+  res.redirect('/listings');  // or render a homepage if you have one
+});
+
 
 app.use(session(sessionOption));
 app.use(flash());  
