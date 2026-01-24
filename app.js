@@ -21,7 +21,7 @@ const listingRouter = require('./routes/listing.js');
 const reviewRouter = require('./routes/review.js');
 const userRouter = require('./routes/user.js');
 
-const port = 8080; 
+const port = process.env.PORT || 8080;
 // const MONGO_URL = "mongodb://127.0.0.1:27017/wonderlust";// ye locally kam karta tha 
 const dbUrl = process.env.ATLASDB_URL;
 
