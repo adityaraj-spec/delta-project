@@ -72,9 +72,6 @@ const sessionOption = {
 // app.get('/', (req,res)=>{
 //     res.send('hey this is the first root');
 // });
-app.get('/', (req, res) => {
-  res.redirect('/listings');  // or render a homepage if you have one
-});
 
 
 app.use(session(sessionOption));
@@ -106,6 +103,10 @@ app.use((req, res, next)=>{
 //     res.send(registeredUser);
 // });
 
+const listingController = require('./controllers/listing.js');
+const wrapAsync = require('./utils/wrapAsync.js');
+app.get('/', wrapAsync(listingController.index));
+
 app.use('/listings', listingRouter);
 // app.use('/listings', require('./routes/listing.js'))
 
@@ -122,8 +123,9 @@ app.use((req, res, next)=>{
 
 //error handling middleware 
 app.use((err, req, res, next)=>{
-    const {status = 500, message = "Something went wrong"} = err;
-    res.render("error", {status, message});
+    let statusCode = err.statusCode || err.status || 500;
+    let message = err.message || "Something went wrong";
+    res.status(statusCode).render("error", { status: statusCode, message });
 });
 
 app.listen(port, () => {
