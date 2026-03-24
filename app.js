@@ -1,13 +1,18 @@
-if(process.env.NODE_ENV !== "production"){
+if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
 
 const express = require('express');
 const app = express();
+
+app.get('/ping', (req, res) => {
+    res.status(200).send('OK');
+});
+
 const mongoose = require('mongoose');
 const path = require('path');
 const methodOverride = require('method-override');
-const ejsMate =require('ejs-mate');
+const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError.js');
 const session = require('express-session');
 const MongoStore = require("connect-mongo").default;
@@ -26,14 +31,14 @@ const port = process.env.PORT || 8080;
 const dbUrl = process.env.ATLASDB_URL;
 
 main()
-.then(()=>{
-    console.log("Connection successful");
-})
-.catch((err)=>{
-    console.log(err);
-});
+    .then(() => {
+        console.log("Connection successful");
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 
-async function main(){
+async function main() {
     await mongoose.connect(dbUrl);
 }
 
@@ -41,13 +46,13 @@ async function main(){
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({extended : true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, "/public")));
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
-    crypto:{
+    crypto: {
         secret: process.env.SECRET,
     },
     touchAfter: 24 * 3600,//in sec
@@ -62,10 +67,10 @@ const sessionOption = {
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie:{
-        expires: Date.now() + 1000 * 60 * 60 * 24 *7,
-        maxAge: 1000 * 60 * 60 * 24 *7,
-        httpOnly:true,
+    cookie: {
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: true,
     },
 };
 
@@ -75,7 +80,7 @@ const sessionOption = {
 
 
 app.use(session(sessionOption));
-app.use(flash());  
+app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -85,7 +90,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-app.use((req, res, next)=>{
+app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     res.locals.currUser = req.user;
@@ -116,18 +121,18 @@ app.use('/listings/:id/reviews', reviewRouter);
 app.use("/", userRouter);
 
 // 404 handler
-app.use((req, res, next)=>{
-    next(new ExpressError(404 ,"Page Not Found"));
+app.use((req, res, next) => {
+    next(new ExpressError(404, "Page Not Found"));
 });
 
 
 //error handling middleware 
-app.use((err, req, res, next)=>{
+app.use((err, req, res, next) => {
     let statusCode = err.statusCode || err.status || 500;
     let message = err.message || "Something went wrong";
     res.status(statusCode).render("error", { status: statusCode, message });
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 });
