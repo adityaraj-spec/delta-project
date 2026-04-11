@@ -20,65 +20,59 @@
   }
 </style>
 
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
+<nav class="navbar navbar-expand-md sticky-top">
+  <div class="container-fluid px-md-5">
+    <a class="navbar-brand d-flex align-items-center" href="/listings">
+            <i class="fa-regular fa-compass me-2" style="color: #fe424d !important;"></i> 
+        <span class="fs-4 fw-bold d-none d-sm-inline" style="font-family: var(--font-heading);">Wanderlust</span>
+    </a>
     
-    <!-- Toggler for Mobile (Offcanvas) -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+    <!-- Toggler for Mobile -->
+    <button class="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Sidebar (Offcanvas) for Mobile -->
+    <!-- Sidebar (Offcanvas) -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-      <div class="offcanvas-header border-bottom">
-        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Wanderlust</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      <div class="offcanvas-header px-4 py-3">
+        <h5 class="offcanvas-title d-flex align-items-center" id="offcanvasNavbarLabel">
+            <i class="fa-regular fa-compass me-2"></i> 
+            Wanderlust
+        </h5>
+        <button type="button" class="btn-close shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
-      <div class="offcanvas-body">
-        <div class="navbar-nav flex-grow-1 pe-3">
-          <a class="nav-link" href="/listings">Explore</a>
-          <hr class="d-md-none">
-          <div class="d-md-none mt-2 mb-3">
-             <form class="d-flex" role="search" action="/listings" method="GET">
-                <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" aria-label="Search" name="search"/>
-                <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-             </form>
-          </div>
-          <hr class="d-md-none">
-          <a class="nav-link" href="/listings/new">Airbnb your home</a>
+      <div class="offcanvas-body px-4">
+        <div class="navbar-nav w-100 px-3">
+          <!-- Common links for mobile sidebar/desktop -->
+          <a class="nav-link py-3 border-bottom" href="/listings/new" style="font-family: var(--font-heading);">Airbnb your home</a>
           <% if(!currUser){ %>
-            <a class="nav-link" href="/signup">Signup</a>
-            <a class="nav-link" href="/login">Log in</a>
-          <% } %>
-          <% if(currUser){ %>
-            <a class="nav-link" href="/logout">Log out</a>
+            <a class="nav-link py-3 border-bottom" href="/signup">Signup</a>
+            <a class="nav-link py-3 border-bottom" href="/login">Log in</a>
+          <% } else { %>
+            <a class="nav-link py-3 border-bottom" href="/logout">Log out</a>
           <% } %>
         </div>
       </div>
     </div>
 
-    <!-- Desktop Menu (Hidden on mobile via Offcanvas logic) -->
-    <div class="collapse navbar-collapse d-none d-md-flex" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
-      </div>
-
-      <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search" action="/listings" method="GET">
-          <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" aria-label="Search" name="search"/>
-          <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+    <!-- Desktop Navigation -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav mx-auto d-flex align-items-center">
+        <form class="d-flex position-relative" role="search" action="/listings" method="GET" style="width: min(100%, 400px);">
+          <input class="form-control search-inp ps-4 pe-5 py-2" type="search" placeholder="Search destinations" aria-label="Search" name="search"/>
+          <button class="btn btn-search position-absolute end-0 top-50 translate-middle-y me-1 p-2 d-flex align-items-center justify-content-center" type="submit" style="width: 32px; height: 32px; border-radius: 50% !important;">
+            <i class="fa-solid fa-magnifying-glass fs-6"></i>
+          </button>
         </form>
       </div>
 
-      <div class="navbar-nav ms-auto">
+      <div class="navbar-nav ms-auto align-items-center">
         <a class="nav-link" href="/listings/new">Airbnb your home</a>
         <% if(!currUser){ %>
-          <a class="nav-link" href="/signup">Signup</a>
-          <a class="nav-link" href="/login">Log in</a>
-        <% } %>
-        <% if(currUser){ %>
-          <a class="nav-link" href="/logout">Log out</a>
+          <a class="nav-link fw-bold text-dark" href="/signup">Signup</a>
+          <a class="nav-link fw-bold text-dark" href="/login">Log in</a>
+        <% } else { %>
+          <a class="nav-link fw-bold text-primary" href="/logout">Log out</a>
         <% } %>
       </div>
     </div>

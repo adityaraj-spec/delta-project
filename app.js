@@ -1,3 +1,4 @@
+// Triggering restart for UI changes
 if (process.env.NODE_ENV !== "production") {
     require("dotenv").config();
 }
