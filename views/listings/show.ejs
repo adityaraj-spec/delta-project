@@ -5,10 +5,10 @@
 </script>
 <body>
     <div class="row mt-3">
-        <div class="col-8 offset-3" >
+        <div class="col-12 col-md-8 offset-md-2" >
             <b><h3><%= listing.title %></h3></b>
         </div>
-        <div class="card col-6 offset-3 show-card card-listings" >
+        <div class="card col-12 col-md-8 offset-md-2 show-card card-listings" >
             <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_image">
                 <div class="card-body">
                     <p class="card-text"><i>Owned By <%= listing.owner.username %></i></p>
@@ -28,7 +28,7 @@
                 <% } %>
         </div>
 
-        <div class = "col-8 offset-3 mb-3">
+        <div class = "col-12 col-md-8 offset-md-2 mb-3">
             <% if(currUser){ %>
                 <hr>
                 <h4>
@@ -73,7 +73,7 @@
             <div class = "row">
                  <p><b>All Reviews</b></p>
             <% for(let review of listing.reviews){ %>
-                <div class="card  col-5 ms-2 mb-3">
+                <div class="card col-12 col-sm-5 ms-sm-2 mb-3">
                     <div class="card-body">
                         <h5 class="card-title"><%= review.author.username %></h5>
                         <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
@@ -87,7 +87,7 @@
         </div>
         <% } %>
         </div>
-        <div class = "col-8 offset-3 mb-3">
+        <div class = "col-12 col-md-8 offset-md-2 mb-3">
             <h3>Where you'll be</h3>
             <div id="map"></div>
         </div>

@@ -23,30 +23,62 @@
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    
+    <!-- Toggler for Mobile (Offcanvas) -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+    <!-- Sidebar (Offcanvas) for Mobile -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Wanderlust</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <div class="navbar-nav flex-grow-1 pe-3">
+          <a class="nav-link" href="/listings">Explore</a>
+          <hr class="d-md-none">
+          <div class="d-md-none mt-2 mb-3">
+             <form class="d-flex" role="search" action="/listings" method="GET">
+                <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" aria-label="Search" name="search"/>
+                <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+             </form>
+          </div>
+          <hr class="d-md-none">
+          <a class="nav-link" href="/listings/new">Airbnb your home</a>
+          <% if(!currUser){ %>
+            <a class="nav-link" href="/signup">Signup</a>
+            <a class="nav-link" href="/login">Log in</a>
+          <% } %>
+          <% if(currUser){ %>
+            <a class="nav-link" href="/logout">Log out</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desktop Menu (Hidden on mobile via Offcanvas logic) -->
+    <div class="collapse navbar-collapse d-none d-md-flex" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" href="/listings">Explore</a>
+        <a class="nav-link" href="/listings">Explore</a>
       </div>
 
-      <div class = "navbar-nav ms-auto ">
-        <form class="d-flex" role="search">
-        <input class="form-control  me-2 search-inp" type="search" placeholder="Search destinations" aria-label="Search"/>
-        <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search" action="/listings" method="GET">
+          <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" aria-label="Search" name="search"/>
+          <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
         </form>
       </div>
 
-       <div class="navbar-nav ms-auto">
-        <a class="nav-link active" href="/listings/new">Airbnb your home</a>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/listings/new">Airbnb your home</a>
         <% if(!currUser){ %>
-          <a class="nav-link active" href="/signup"><b>Signup</b></a>
-          <a class="nav-link active" href="/login"><b>Log in</b></a>
+          <a class="nav-link" href="/signup">Signup</a>
+          <a class="nav-link" href="/login">Log in</a>
         <% } %>
-
         <% if(currUser){ %>
-          <a class="nav-link active" href="/logout"><b>Log out</b></a>
+          <a class="nav-link" href="/logout">Log out</a>
         <% } %>
       </div>
     </div>
